@@ -13,12 +13,16 @@ function capitalize(string) {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (CHOICES.indexOf(playerSelection) === -1) {
+  if (playerSelection === null || playerSelection === undefined) {
     return;
   }
 
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
+
+  if (CHOICES.indexOf(playerSelection) === -1) {
+    return;
+  }
 
   if (playerSelection === computerSelection) {
     return 0;
