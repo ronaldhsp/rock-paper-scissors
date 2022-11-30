@@ -25,18 +25,26 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
   // call play round for a 5 round game
+  let points = 0;
   for (let i = 0; i < 5; i++) {
     let playerSelection = capitalize(prompt("Rock? Paper? Or scissors?"));
     let computerSelection = capitalize(getComputerChoice());
     let playerWins = playRound(playerSelection, computerSelection);
     
     if (playerWins) {
+      points++;
       console.log(`You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`);
     } else if (playerSelection === computerSelection) {
       console.log("Draw!");
     } else {
       console.log(`You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`);
     }
+  }
+
+  if (points >= 3) {
+    console.log(`You won the game with ${points}/5 points!`);
+  } else {
+    console.log(`You lost the game with ${points}/5 points!`);
   }
 }
 
