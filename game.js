@@ -7,11 +7,18 @@ function getComputerChoice() {
   return CHOICES[choiceNum];
 }
 
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
+
 function playRound(playerSelection, computerSelection) {
   // return a string that declares the winner in the format "You lose/win! ... beats ..."
-  let playerWins = (playerSelection === "rock" && computerSelection === "scissors") ||
-    (playerSelection === "paper" && computerSelection === "rock") ||
-    (playerSelection === "scissors" && computerSelection === "paper");
+  playerSelection = capitalize(playerSelection);
+  computerSelection = capitalize(computerSelection);
+
+  let playerWins = (playerSelection === "Rock" && computerSelection === "Scissors") ||
+    (playerSelection === "Paper" && computerSelection === "Rock") ||
+    (playerSelection === "Scissors" && computerSelection === "Paper");
 
   if (playerWins) {
     return `You win! ${playerSelection} beats ${computerSelection}`;
