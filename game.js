@@ -31,4 +31,10 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
   // call play round for a 5 round game
+  for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt("Rock? Paper? Or scissors?");
+    console.log(playRound(playerSelection, getComputerChoice()));
+  }
 }
+
+game();
