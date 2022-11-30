@@ -1,8 +1,9 @@
 "use strict";
 
+const CHOICES = ["rock", "paper", "scissors"];
+
 function getComputerChoice() {
   // randomly return rock, paper or scissors
-  const CHOICES = ["rock", "paper", "scissors"];
   let choiceNum = Math.floor(Math.random() * 3) % 3;
   return CHOICES[choiceNum];
 }
@@ -12,6 +13,10 @@ function capitalize(string) {
 }
 
 function playRound(playerSelection, computerSelection) {
+  if (CHOICES.indexOf(playerSelection) === -1) {
+    return;
+  }
+
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
 
@@ -29,8 +34,8 @@ function game() {
   // call play round for a 5 round game
   let points = 0;
   for (let i = 0; i < 5; i++) {
-    let playerSelection = capitalize(prompt("Rock? Paper? Or scissors?"));
-    let computerSelection = capitalize(getComputerChoice());
+    let playerSelection = prompt("Rock? Paper? Or scissors?");
+    let computerSelection = getComputerChoice();
     let winner = playRound(playerSelection, computerSelection);
 
     switch (winner) {
