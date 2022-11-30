@@ -12,15 +12,17 @@ function capitalize(string) {
 }
 
 function playRound(playerSelection, computerSelection) {
-  // return a string that declares the winner in the format "You lose/win! ... beats ..."
   playerSelection = playerSelection.toLowerCase();
   computerSelection = playerSelection.toLowerCase();
+
+  if (playerSelection === computerSelection) {
+    return 0;
+  }
 
   let playerWins = (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
     (playerSelection === "scissors" && computerSelection === "paper");
-
-  return playerWins;
+  return playerWins ? 1 : -1;
 }
 
 function game() {
@@ -29,15 +31,21 @@ function game() {
   for (let i = 0; i < 5; i++) {
     let playerSelection = capitalize(prompt("Rock? Paper? Or scissors?"));
     let computerSelection = capitalize(getComputerChoice());
-    let playerWins = playRound(playerSelection, computerSelection);
-    
-    if (playerWins) {
-      points++;
-      console.log(`You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`);
-    } else if (playerSelection === computerSelection) {
-      console.log("Draw!");
-    } else {
-      console.log(`You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`);
+    let winner = playRound(playerSelection, computerSelection);
+
+    switch (winner) {
+      case 1:
+        points++;
+        console.log(`You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`);
+        break;
+      case 0:
+        console.log("Draw!");
+        break;
+      case -1:
+        console.log(`You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`);
+        break;
+      default:
+        console.log("Round defaulted.");
     }
   }
 
