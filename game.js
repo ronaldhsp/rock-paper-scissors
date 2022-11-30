@@ -36,7 +36,8 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
   // call play round for a 5 round game
-  let points = 0;
+  let playerPoints = 0;
+  let computerPoints = 0;
   for (let i = 0; i < 5; i++) {
     let playerSelection = prompt("Rock? Paper? Or scissors?");
     let computerSelection = getComputerChoice();
@@ -44,13 +45,14 @@ function game() {
 
     switch (winner) {
       case 1:
-        points++;
+        playerPoints++;
         console.log(`You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`);
         break;
       case 0:
         console.log("Draw!");
         break;
       case -1:
+        computerPoints++;
         console.log(`You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`);
         break;
       default:
@@ -58,10 +60,12 @@ function game() {
     }
   }
 
-  if (points >= 3) {
-    console.log(`You won the game with ${points}/5 points!`);
+  if (playerPoints > computerPoints) {
+    console.log(`You won with ${playerPoints} points vs ${computerPoints} points!`);
+  } else if (playerPoints < computerPoints) {
+    console.log(`You lost with ${playerPoints} points vs ${computerPoints} points!`);
   } else {
-    console.log(`You lost the game with ${points}/5 points!`);
+    console.log(`You drawed with ${playerPoints} points vs ${computerPoints} points!`);
   }
 }
 
