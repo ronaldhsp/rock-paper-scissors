@@ -13,7 +13,7 @@ function capitalize(string) {
 
 function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
-  computerSelection = playerSelection.toLowerCase();
+  computerSelection = computerSelection.toLowerCase();
 
   if (playerSelection === computerSelection) {
     return 0;
