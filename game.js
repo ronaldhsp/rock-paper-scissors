@@ -2,6 +2,9 @@
 
 function getComputerChoice() {
   // randomly return rock, paper or scissors
+  const CHOICES = ["rock", "paper", "scissors"];
+  let choiceNum = Math.floor(Math.random() * 3) % 3;
+  return CHOICES[choiceNum];
 }
 
 function playRound(playerSelection, computerSelection) {
