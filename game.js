@@ -29,44 +29,54 @@ function playRound(playerSelection, computerSelection) {
   }
 
   let playerWins = (playerSelection === "rock" && computerSelection === "scissors") ||
-    (playerSelection === "paper" && computerSelection === "rock") ||
-    (playerSelection === "scissors" && computerSelection === "paper");
+      (playerSelection === "paper" && computerSelection === "rock") ||
+      (playerSelection === "scissors" && computerSelection === "paper");
   return playerWins ? 1 : -1;
 }
 
-function game() {
-  // call play round for a 5 round game
-  let playerPoints = 0;
-  let computerPoints = 0;
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Rock? Paper? Or scissors?");
-    let computerSelection = getComputerChoice();
-    let winner = playRound(playerSelection, computerSelection);
+function updateScore() {
+  playerScore.textContent = playerPoints;
+  computerScore.textContent = computerPoints;
+  
+  if (playerPoints === 5) {
+    scoreboard.textContent = "Congratulations! You won!";
+    buttons.forEach(function(btn) { btn.disabled = true; });
+  } else if (computerPoints === 5) {
+    scoreboard.textContent = "Unfortunately, you lost.";
+    buttons.forEach(function(btn) { btn.disabled = true; });
+  }
+}  
 
-    switch (winner) {
-      case 1:
-        playerPoints++;
-        console.log(`You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`);
-        break;
-      case 0:
-        console.log("Draw!");
-        break;
-      case -1:
-        computerPoints++;
-        console.log(`You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`);
-        break;
-      default:
-        console.log("Round defaulted.");
-    }
+function processInput(e) {
+  let playerSelection = e.srcElement.textContent;
+  let computerSelection = getComputerChoice();
+  let winner = playRound(playerSelection, computerSelection);
+
+  switch (winner) {
+    case 1:
+      playerPoints++;
+      scoreboard.textContent = `You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`;
+      break;
+    case 0:
+      scoreboard.textContent = "Draw!";
+      break;
+    case -1:
+      computerPoints++;
+      scoreboard.textContent = `You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`;
+      break;
+    default:
+      scoreboard.textContent = "Round defaulted.";
   }
 
-  if (playerPoints > computerPoints) {
-    console.log(`You won with ${playerPoints} points vs ${computerPoints} points!`);
-  } else if (playerPoints < computerPoints) {
-    console.log(`You lost with ${playerPoints} points vs ${computerPoints} points!`);
-  } else {
-    console.log(`You drawed with ${playerPoints} points vs ${computerPoints} points!`);
-  }
+  updateScore();
 }
 
-game();
+let playerPoints = 0;
+let computerPoints = 0;
+
+let buttons = document.querySelectorAll("button");
+buttons.forEach(btn => btn.addEventListener("click", processInput));
+
+let scoreboard = document.querySelector(".scoreboard");
+let playerScore = document.querySelector(".player-score");
+let computerScore = document.querySelector(".computer-score");
